@@ -12,5 +12,8 @@ class Manager extends Employee {
   }
 }
 
-const Jon = new Manager("Jon", 12345, "random@SpeechGrammarList.com", 123456);
-console.log(Jon);
+module.exports = Manager;
+
+
+// const Jon = new Manager("Jon", 12345, "random@SpeechGrammarList.com", 123456);
+// console.log(Jon);
