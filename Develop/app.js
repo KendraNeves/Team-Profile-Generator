@@ -40,7 +40,38 @@ return inquirer.prompt([
             "Intern",
         ]
     },
-]).then()
+])
+    .then((answers) =>{
+        if (answers.role === "Manager") {
+            return inquirer.prompt([
+                {
+                    type: "input",
+                    name: "officeNumber",
+                    message: "Manager's Office Number:"
+                }
+            ])
+        }
+
+        if (answers.role === "Engineer") {
+            return inquirer.prompt([
+                {
+                    type: "input",
+                    name: "github",
+                    message: "Engineer's GitHub Username:"
+                }
+            ])
+        }
+
+        if (answers.role === "Intern") {
+            return inquirer.prompt([
+                {
+                    type: "input",
+                    name: "school",
+                    message: "School Intern Attended:"
+                }
+            ])
+        }
+    })
 //Inside .then, run second prompt to ask employee specific questions
 
 
