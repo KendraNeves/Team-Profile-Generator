@@ -13,8 +13,7 @@ const render = require("./lib/htmlRenderer");
 // ​
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-
-return inquirer.prompt([
+const baseQuestions = [
     {
         type: "input",
         name: "name",
@@ -40,7 +39,11 @@ return inquirer.prompt([
             "Intern",
         ]
     },
-])
+];
+
+function promptUser(){
+
+    return inquirer.prompt(baseQuestions)
     .then((answers) =>{
         if (answers.role === "Manager") {
             return inquirer.prompt([
@@ -72,6 +75,29 @@ return inquirer.prompt([
             ])
         }
     })
+    .then((answers) => {
+        return inquirer.prompt([
+            {
+                type: "list",
+                name: "addEmployee",
+                message: "Would you like to add another Employee?",
+                choices: [
+                    "Yes",
+                    "No"
+                ]
+            }
+        ])
+        .then(answers => {
+            if (answers.addEmployee === "Yes"){
+                promptUser();
+            }
+        // if answers.choice == "Yes"...
+        // PromptUsers()
+        })
+    })
+}
+
+promptUser();
 //Inside .then, run second prompt to ask employee specific questions
 
 
