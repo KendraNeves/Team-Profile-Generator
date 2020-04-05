@@ -10,6 +10,9 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 // 
 const render = require("./lib/htmlRenderer");
 
+// const util = require("util");
+// const writeFileAsync = util.promisify(fs.writeFile);
+
 const baseQuestions = [
     {
         type: "input",
@@ -105,8 +108,14 @@ function promptUser(){
     })
 }
 
-promptUser();
-render(employeesArray);
+promptUser()
+.then(() => {
+    fs.writeFile(outputPath, render(employeesArray), (err) => {
+        if (err) throw err;
+        console.log(`The file has been written to ${outputPath}`);
+    })
+})
+// 
 
 // ​
 // After the user has input all employees desired, call the `render` function (required
