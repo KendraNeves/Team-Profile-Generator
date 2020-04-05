@@ -7,7 +7,6 @@ class Manager extends Employee {
   }
 
   getRole() {
-    console.log("Manager");
     return "Manager";
   }
 
@@ -17,7 +16,3 @@ class Manager extends Employee {
 }
 
 module.exports = Manager;
-
-
-// const Jon = new Manager("Jon", 12345, "random@SpeechGrammarList.com", 123456);
-// console.log(Jon);

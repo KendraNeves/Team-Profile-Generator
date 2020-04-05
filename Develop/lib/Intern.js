@@ -7,19 +7,12 @@ class Intern extends Employee {
     }
 
     getRole() {
-        console.log("Intern");
         return "Intern";
     }
 
     getSchool () {
-        console.log(`School Attended: ${this.school}`);
         return this.school;
     }
 }
 
 module.exports = Intern;
-
-// const Betty = new Intern("Betty", 34567, "Betty@gmail.com", "UConn");
-// console.log(Betty);
-// Betty.getRole();
-// Betty.getSchool();

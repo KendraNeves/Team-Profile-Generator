@@ -7,12 +7,10 @@ class Engineer extends Employee {
     }
 
     getRole() {
-        console.log("Engineer");
         return "Engineer";
     }
 
     getGithub() {
-        console.log(`GitHub Username: ${this.github}`);
         return this.github;
     }
 }
