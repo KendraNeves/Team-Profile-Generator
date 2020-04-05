@@ -9,10 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 // 
 const render = require("./lib/htmlRenderer");
-// ​
-// ​
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
+
 const baseQuestions = [
     {
         type: "input",
@@ -41,7 +38,11 @@ const baseQuestions = [
     },
 ];
 
+// ======================== PROMPT USER ========================= //
+let employeesArray = [];
+
 function promptUser(){
+    let employee;
 
     return inquirer.prompt(baseQuestions)
     .then((answers) =>{
@@ -52,7 +53,9 @@ function promptUser(){
                     name: "officeNumber",
                     message: "Manager's Office Number:"
                 }
-            ])
+            ]).then(managerAnswers => {
+                employee = new Manager(answers.name, answers.id, answers.email, managerAnswers.officeNumber);
+            })
         }
 
         if (answers.role === "Engineer") {
@@ -62,7 +65,9 @@ function promptUser(){
                     name: "github",
                     message: "Engineer's GitHub Username:"
                 }
-            ])
+            ]).then(engineerAnswers => {
+                employee = new Engineer(answers.name, answers.id, answers.email, engineerAnswers.github);
+            })
         }
 
         if (answers.role === "Intern") {
@@ -72,8 +77,12 @@ function promptUser(){
                     name: "school",
                     message: "School Intern Attended:"
                 }
-            ])
+            ]).then(internAnswers => {
+                employee = new Intern(answers.name, answers.id, answers.email, internAnswers.school);
+            })
         }
+
+
     })
     .then((answers) => {
         return inquirer.prompt([
@@ -88,18 +97,16 @@ function promptUser(){
             }
         ])
         .then(answers => {
+            employeesArray.push(employee);
             if (answers.addEmployee === "Yes"){
                 promptUser();
             }
-        // if answers.choice == "Yes"...
-        // PromptUsers()
         })
     })
 }
 
 promptUser();
-//Inside .then, run second prompt to ask employee specific questions
-
+render(employeesArray);
 
 // ​
 // After the user has input all employees desired, call the `render` function (required
@@ -108,16 +115,7 @@ promptUser();
 // ​
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
+// `output` folder. You can use the variable `outputPath` above to target this location.
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
-// ​
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-// ​
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an 
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work!```
+
